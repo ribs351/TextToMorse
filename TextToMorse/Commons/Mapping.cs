@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextToMorse.Commons
+﻿namespace TextToMorse.Commons
 {
     public class Mapping
     {
-        public static Dictionary<char, string> morseCodeDictionary = new Dictionary<char, string>
+        public static readonly Dictionary<char, string> morseCodeDictionary = new Dictionary<char, string>
         {
             { 'A', ".-" }, { 'B', "-..." }, { 'C', "-.-." },
             { 'D', "-.." }, { 'E', "." }, { 'F', "..-." },
@@ -24,7 +18,7 @@ namespace TextToMorse.Commons
             { '6', "-...." }, { '7', "--..." }, { '8', "---.." },
             { '9', "----." }
         };
-        public static Dictionary<char, string> binaryMorseDictionary = new Dictionary<char, string>
+        public static readonly Dictionary<char, string> binaryMorseDictionary = new Dictionary<char, string>
         {
             { '0', "-----" },
             { '1', ".----" }
