@@ -18,10 +18,5 @@
             { '6', "-...." }, { '7', "--..." }, { '8', "---.." },
             { '9', "----." }
         };
-        public static readonly Dictionary<char, string> binaryMorseDictionary = new Dictionary<char, string>
-        {
-            { '0', "-----" },
-            { '1', ".----" }
-        };
     }
 }

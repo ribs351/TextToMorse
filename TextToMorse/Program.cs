@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using TextToMorse.Commons;
+﻿using TextToMorse.Utils;
 
 namespace Program
 {
@@ -17,46 +15,31 @@ namespace Program
                     input = Console.ReadLine();
                     if (string.IsNullOrEmpty(input))
                     {
-                        Console.WriteLine("You must input something!");
-                        Console.WriteLine("Enter your text here: ");
+                        Console.WriteLine("You must input something!\nEnter your text here: \n");
                     }
-                } while (string.IsNullOrEmpty(input));
-
-                (var binaryString, var morseString, var binaryMorseString) = StringConversion(input);
-                Console.WriteLine($"\nBinary: {binaryString}");
-                Console.WriteLine($"Morse: {morseString}");
-                Console.WriteLine($"Binary To Morse: {binaryMorseString}\n");
-            }
-        }
-
-        private static (string binaryString, string morseString, string binaryMorseString) StringConversion(string input)
-        {
-            var binaryString = new StringBuilder();
-            var morseString = new StringBuilder();
-            var binaryMorseString = new StringBuilder();
-
-            foreach (var c in input.ToUpper()) // To uppercase because in morse code it doesn't matter if it's lowercase or uppercase
-            {
-                if (Mapping.morseCodeDictionary.ContainsKey(c))
-                {
-                    morseString.Append(Mapping.morseCodeDictionary[c] + " ");
-
-                    string binary = Convert.ToString(c, 2).PadLeft(8, '0');
-                    binaryString.Append(binary + " ");
-                    foreach (char b in binary)
+                    else if (input.Any(c => !char.IsLetterOrDigit(c)))
                     {
-                        binaryMorseString.Append(Mapping.binaryMorseDictionary[b]);
+                        Console.WriteLine("Invalid character detected.\nEnter your text here: \n");
                     }
-                    binaryMorseString.Append(" ");
                 }
+                while (string.IsNullOrEmpty(input) || input.Any(c => !char.IsLetterOrDigit(c)));
+                input = input.ToUpper();
+                var morseString = ConverterUtils.StringToMorse(input);
+                var (hexString, hexMorseString) = ConverterUtils.HexToMorse(input);
+                var (decimalString, decimalMorseString) = ConverterUtils.DecimalToMorse(input);
+                var (octalString, octalMorseString) = ConverterUtils.OctalToMorse(input);
+                
+                Console.WriteLine($"\nMorse String: {morseString}");
 
-                else
-                {
-                    return ("Invalid character detected.", string.Empty, string.Empty);
-                }
+                Console.WriteLine($"\nDecimal String: {decimalString}");
+                Console.WriteLine($"\nDecimal Morse String: {decimalMorseString}");
+                
+                Console.WriteLine($"\nOctal String: {octalString}");
+                Console.WriteLine($"\nOctal Morse String: {octalMorseString}");
+                
+                Console.WriteLine($"\nHex String: {hexString}");
+                Console.WriteLine($"\nHex Morse String: {hexMorseString}");
             }
-
-            return (binaryString.ToString().Trim(), morseString.ToString().Trim(), binaryMorseString.ToString().Trim());
         }
     }
 }
